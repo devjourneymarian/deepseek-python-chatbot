@@ -12,7 +12,10 @@ response = client.chat.completions.create(
         {"role": "system", "content": "You are a helpful assistant"},
         {"role": "user", "content": input()},
     ],
+    temperature=1.5,
     stream=False
 )
 
 print(response.choices[0].message.content)
+
+
