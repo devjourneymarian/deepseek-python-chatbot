@@ -11,3 +11,5 @@ automated résumé grading, and more.
 necessary code to make the first API call.
 
 05.03.2025: Implemented multi-round conversation and DEVLOG.md.
+
+06.03.2025: Added simple Try Except

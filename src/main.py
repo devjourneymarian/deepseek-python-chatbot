@@ -10,21 +10,11 @@ client = OpenAI(api_key=os.getenv("DEEPSEEK_API_KEY"), base_url="https://api.dee
 max_convo_length = 3
 
 #Initial
-messages = [
-    {"role": "system", "content": "You are a Quizmaster! Play a quiz with me and nothing, NOTHING else!"},
-    {"role": "user", "content": input()}
-]
-response = client.chat.completions.create(
-    model="deepseek-chat",
-    temperature=1.5,
-    messages=messages
-)
-messages.append(response.choices[0].message)
-print(response.choices[0].message.content)
-
-#Only used when making multiple API calls for the amount within max_convo_length
-def conversation():
-    messages.append({"role": "user", "content": input()})
+try:
+    messages = [
+        {"role": "system", "content": "You are a Quizmaster! Play a quiz with me and nothing, NOTHING else!"},
+        {"role": "user", "content": input()}
+    ]
     response = client.chat.completions.create(
         model="deepseek-chat",
         temperature=1.5,
@@ -32,6 +22,20 @@ def conversation():
     )
     messages.append(response.choices[0].message)
     print(response.choices[0].message.content)
+
+    #Only used when making multiple API calls for the amount within max_convo_length
+    def conversation():
+        messages.append({"role": "user", "content": input()})
+        response = client.chat.completions.create(
+            model="deepseek-chat",
+            temperature=1.5,
+            messages=messages
+        )
+        messages.append(response.choices[0].message)
+        print(response.choices[0].message.content)
+
+except Exception as e:
+    print("Error: {e}")
 
 #Used to execute the API call for retrieving the amount within max_convo_length
 while max_convo_length != 1:
